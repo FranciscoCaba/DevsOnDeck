@@ -1,38 +1,221 @@
-.App {
-  text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.flex-container {
+    display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.flex-1 {
+    flex: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.flex-2 {
+    flex: 2;
 }
 
-.App-link {
-  color: #61dafb;
+.flex-3 {
+    flex: 3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.align-center {
+    align-items: center;
+}
+
+.welcome-container {
+    text-align: center;
+    background-color: #b45f06;
+    margin: 15vh auto;
+    width: 30vw;
+}
+.welcome-container h2 {
+    padding: 2vh;
+}
+
+.welcome-div-divider {
+    padding: 2vh 0;
+}
+
+.welcome-div-divider button {
+    margin: 1.5vh auto;
+    padding: 0.3vw;
+    width: 15vw;
+    display: block;
+}
+
+.nav-bar {
+    background-color: #b45f06;
+    justify-content: space-between;
+    padding: 2vh;
+}
+
+.nav-bar h2 {
+    color: white;
+}
+
+.logout-div {
+    cursor: pointer;
+}
+
+.logout {
+    color: black;
+    margin-right: 0.5vw;
+}
+
+.logout-icon {
+    width: 2vw;
+}
+
+.mode-selection a{
+    padding: 0 1vw;
+}
+
+.login-form, .register-form {
+    background-color: #dddddd;
+    margin: 5vh auto;
+    border: 2px solid black;
+}
+
+.login-form {
+    width: 40vw;
+    padding: 2vh 2vw;
+    text-align: center;
+}
+
+.input {
+    padding: 0.5vh 0.5vw;
+}
+
+.login-label {
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.login-group {
+    margin: 2vh 0;
+}
+
+.login-button {
+    cursor: pointer;
+    padding: 0.5vh 0.5vw;
+    background-color: #38761d;
+    box-shadow: 2px 2px black;
+    color: white;
+    font-weight: bold;
+}
+
+.register-form {
+    width: 60vw;
+    padding: 2vh 2vw;
+}
+
+.register-form h1, .register-form a {
+    display: block;
+    text-align: center;
+}
+
+.register-form > div {
+    margin: 1vh 0;
+}
+
+.register-button {
+    display: block;
+    cursor: pointer;
+    padding: 0.5vh 3.5vw;
+    margin: 0 0 0 auto;
+    background-color: #38761d;
+    box-shadow: 2px 2px black;
+    color: white;
+    font-weight: bold;
+}
+
+.register-label {
+    text-align: right;
+    margin-right: 1vw;
+}
+
+.dashboard-container {
+    margin: 3vh 3vw;
+}
+
+.position-div {
+    margin: 0 2vw;
+}
+
+.position-button {
+    cursor: pointer;
+    width: 99.5%;
+    padding: 1vh 0;
+    margin: 0 0 2vh 0;
+    font-size: medium;
+    background-color: #6fa8dc;
+    box-shadow: 2px 2px black;
+}
+
+.positions-container {
+    height: 75vh;
+    border: 2px solid black;
+    padding: 1vh 1vw;
+}
+
+.positions-container h2 {
+    margin-bottom: 2vh;
+}
+
+.available-devs-container {
+    height: 82.1vh;
+    border: 2px solid black;
+}
+
+.available-devs-title {
+    background-color: #999999;
+    padding: 1vh 1vw;
+    border-bottom: 2px solid black;
+}
+
+.available-devs {
+    padding: 1vh 1vw;
+}
+
+.skills-container {
+    height: 85vh;
+    margin: 3vh auto;
+    width: 60vw;
+    border: 2px solid black;
+}
+
+.skills-title {
+    padding: 1vh 1vw;
+    background-color: #6fa8dc;
+    border-bottom: 2px solid black;
+    justify-content: space-between;
+}
+
+.skills-body {
+    padding: 2vh 1vw;
+    height: 75vh;
+}
+
+.languages-options, .selected-skills {
+    border: 2px solid black;
+}
+
+.languages-options {
+    height: 80%;
+    padding: 1vh 1vw;
+}
+
+.languages-left {
+    margin-right: 2vw;
+}
+
+.languages-right p {
+    margin-top: 2vh;
+}
+
+.skill-icon {
+    width: 50px;
 }
