@@ -1,13 +1,21 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import LogOutIcon from'../assets/icons/logout.png'
+import axios from 'axios'
 
 
 const NavBar = ({ action }) => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        navigate('/')
+        axios.post('http://localhost:8000/api/logout',{}, { withCredentials: true })
+            .then( res => {
+                console.log(res);
+                navigate('/')
+            })
+            .catch( err => {
+                console.log(err);
+            })
     }
 
     return (
