@@ -56,12 +56,12 @@ const DashBoard = () => {
                                 <div className='flex-2 position-div'>
                                     <button className='position-button' onClick={ e => navigate('/orgs/jobs/new')}>List a New Position</button>
                                     <div className='positions-container'>
-                                        <h2>Positions to Fill</h2>
+                                        <h1>Positions to Fill</h1>
                                         {
                                             !isLoadingPositions ?
                                                 positions.map((value,i)=><div key={i}><Link to={'/orgs/jobs/'+(i+1)}>{value.name}</Link></div>)
                                                 :
-                                                <p>Something is Loading...</p>
+                                                <p className='warning'>Something is Loading...</p>
                                         }
                                     </div>
                                 </div>
@@ -73,35 +73,36 @@ const DashBoard = () => {
                                         {
                                             !isLoadingDevs ?
                                                 devs.map((value,i)=>
-                                                    <div key={i}>
+                                                    <div className='available-dev-div' key={i}>
                                                         <div>
                                                             <h3>{value.firstname} {value.lastname}</h3>
+                                                            <p>{value.shortBio}</p>
+                                                            <h4>Skills:</h4>
                                                             {
                                                                 value.languages.filter( val => skills[val]).map((val,ind)=>{
-                                                                    return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='skill-icon black-colored'/>
+                                                                    return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='mini-skill-icon black-colored'/>
                                                                 })
                                                             }
                                                             {
                                                                 value.frameworks.filter( val => skills[val]).map((val,ind)=>{
-                                                                    return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='skill-icon black-colored'/>
+                                                                    return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='mini-skill-icon black-colored'/>
                                                                 })
                                                             }
                                                         </div>
-                                                        <p>{value.shortBio}</p>
                                                     </div>
                                                 )
                                                 :
-                                                <p>Something is Loading...</p>
+                                                <p className='warning'>Something is Loading...</p>
                                         }
                                     </div>
                                 </div>
                             </div>
                             :
-                            "You must be an Organization to be here"
+                            <p className='warning'>You must be an Organization to be here</p>
                         :
-                        "Session expired, try logging in again..."
+                        <p className='warning'>Session expired, try logging in again...</p>
                     :
-                    "Loading your Data..."
+                    <p className='warning'>Loading your Data...</p>
             }
         </>
     )

@@ -8,6 +8,8 @@ const OrgLogin = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
 
     const navigate = useNavigate()
 
@@ -18,6 +20,10 @@ const OrgLogin = () => {
         }, { withCredentials: true})
             .then( (res) => {
                 navigate('/orgs/dashboard')
+            })
+            .catch( err => {
+                setError(true)
+                setErrorMessage(err.response.data.error)
             })
     }
 
@@ -35,6 +41,12 @@ const OrgLogin = () => {
                     <label className='login-label flex-1'>Password</label>
                     <input className='input flex-2' type="password" value={password} onChange={ e => setPassword(e.target.value)}/>
                 </div>
+                {
+                    error ?
+                        <p className='error'>{errorMessage}</p>
+                        :
+                        ""
+                }
                 <button className='login-button'>Log In</button>
             </form>
         </>

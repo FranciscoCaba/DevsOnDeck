@@ -21,11 +21,8 @@ const NavBar = ({ action, userData }) => {
     const handleLogout = () => {
         axios.post('http://localhost:8000/api/logout',{}, { withCredentials: true })
             .then( res => {
-                console.log(res);
+                // console.log(res);
                 navigate('/')
-            })
-            .catch( err => {
-                console.log(err);
             })
     }
 
@@ -59,7 +56,7 @@ const NavBar = ({ action, userData }) => {
                             <NavLink to='/orgs/login'>Org Login</NavLink>
                         </div>
                         :
-                        <div onClick={handleLogout} className='logout-div flex-container'>
+                        <div onClick={handleLogout} className='logout-div flex-container align-center'>
                             <h3 className='logout'>Logout</h3>
                             <img className='logout-icon' src={LogOutIcon} alt="log-out-icon" />
                         </div>

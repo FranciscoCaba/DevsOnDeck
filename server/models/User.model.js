@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Account Type must be specified"]
     },
     orgName: {
-        type: String
+        type: String,
+        minlength: [1,"Organization Name is required"]
     },
     firstname: {
         type: String,
@@ -20,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "email is required"],
+        required: [true, "Email is required"],
         validate: {
             validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
             message: "Please enter a valid email"
@@ -40,11 +41,11 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "password is required"],
+        required: [true, "Password is required"],
         minlength: [8, "Password must be 8 characters or longer"]
     },
     languages: {
-        type: [String]
+        type: [String],
     },
     frameworks: {
         type: [String]

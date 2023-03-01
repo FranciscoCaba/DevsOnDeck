@@ -70,14 +70,14 @@ const DevsMatchingPosition = () => {
                                     <div>
                                         {
                                             !isLoadingPositions ?
-                                                <p>{positions[num-1].name}</p>
+                                                <h1 className='position-head'>{positions[num-1].name}</h1>
                                                 :
-                                                "Loading position..."
+                                                <p className='warning'>Loading position...</p>
                                         }
                                     </div>
-                                    <div>
+                                    <div className='border-black'>
                                         <div>
-                                            <h1>Available Devs</h1>
+                                            <h1 className='available-devs-title'>Available Devs</h1>
                                         </div>
                                         <div>
                                             {
@@ -90,37 +90,53 @@ const DevsMatchingPosition = () => {
                                                     }).map( (value, i) => {
                                                         const { dev, percent } = value
                                                         return (
-                                                            <div key={i}>
+                                                            <div className='available-dev-div' key={i}>
                                                                 <h2>{dev.firstname} {dev.lastname}</h2>
+                                                                <p>{dev.shortBio ?
+                                                                        dev.shortBio
+                                                                        :
+                                                                        "No Bio"
+                                                                }</p>
+                                                                <h4>Skills:</h4>
                                                                 {
                                                                     dev.languages.map( (value, ind)=>{
-                                                                        return <img key={skills[value].name+i+ind} src={skills[value].icon} alt={skills[value].alt} className='skill-icon black-colored'/>
+                                                                        return <img key={skills[value].name+i+ind} src={skills[value].icon} alt={skills[value].alt} className='mini-skill-icon black-colored'/>
                                                                     })
                                                                 }
                                                                 {
                                                                     dev.frameworks.map( (value, ind)=>{
-                                                                        return <img key={skills[value].name+i+ind} src={skills[value].icon} alt={skills[value].alt} className='skill-icon black-colored'/>
+                                                                        return <img key={skills[value].name+i+ind} src={skills[value].icon} alt={skills[value].alt} className='mini-skill-icon black-colored'/>
                                                                     })
                                                                 }
-                                                                <p>{dev.shortBio}</p>
-                                                                <h3>{percent*100}% Match</h3>
+                                                                {
+                                                                    percent >= 0.75 ?
+                                                                        <h3 className='bg-color-green'>{percent*100}% Match</h3>
+                                                                        :
+                                                                        percent >= 0.5 ?
+                                                                            <h3 className='bg-color-yellow'>{percent*100}% Match</h3>
+                                                                            :
+                                                                            percent >= 0.25 ?
+                                                                                <h3 className='bg-color-orange'>{percent*100}% Match</h3>
+                                                                                :
+                                                                                <h3 className='bg-color-red'>{percent*100}% Match</h3>
+                                                                }
                                                             </div>
                                                         )
                                                     })
                                                     :
-                                                    "Loading devs..."
+                                                    <p className='warning'>Loading devs...</p>
                                             }
                                         </div>
                                     </div>
                                 </div>
                                 :
-                                "There's no job with this id"
+                                <p className='warning'>There's no job with this id</p>
                             :
-                            "You must be an Organization to be here"
+                            <p className='warning'>You must be an Organization to be here</p>
                         :
-                        "Session expired, try logging in again..."
+                        <p className='warning'>Session expired, try logging in again...</p>
                     :
-                    "Loading your Data..."
+                    <p className='warning'>Loading your Data...</p>
             }
         </>
     )

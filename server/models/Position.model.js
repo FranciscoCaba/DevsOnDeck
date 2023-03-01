@@ -17,9 +17,9 @@ const PositionSchema = new mongoose.Schema({
         required: [true, "Skills are required"],
         validate: {
             validator: function(value){
-                return value.length < 6
+                return value.length > 0 && value.length < 6
             },
-            message: "Must be 5 or less skills"
+            message: "Must be at least 1 and less or equal than 5 skills"
         }
     },
     userId: {

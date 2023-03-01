@@ -8,8 +8,8 @@ import axios from 'axios'
 const DevDashBoard = () => {
     const [userData, setUserData] = useState(null)
     const [isLoadingUserData, setIsLoadingUserData] = useState(true)
-    const [devs, setDevs] = useState([])
-    const [isLoadingDevs, setIsLoadingDevs] = useState(true)
+    const [dev, setDev] = useState([])
+    const [isLoadingDev, setIsLoadingDev] = useState(true)
     const [positions, setPositions] = useState([])
     const [isLoadingPositions, setIsLoadingPositions] = useState(true)
 
@@ -38,8 +38,8 @@ const DevDashBoard = () => {
         if(userData!==null){
             axios.get('http://localhost:8000/api/user/'+userData._id, { withCredentials: true })
                 .then( res => {
-                    setDevs(res.data)
-                    setIsLoadingDevs(false)
+                    setDev(res.data)
+                    setIsLoadingDev(false)
                 })
         }
     }, [userData])
@@ -55,12 +55,41 @@ const DevDashBoard = () => {
                                 <div className='flex-2 position-div'>
                                     <button className='position-button' onClick={ e => navigate('/devs/skills/languages')}>Edit Skills</button>
                                     <div className='positions-container'>
-                                        <h2>Your Profile</h2>
+                                        <h1>Your Profile</h1>
                                         {
-                                            !isLoadingDevs ?
-                                                <p>{devs.firstname} {devs.lastname}</p>
+                                            !isLoadingDev ?
+                                                <>
+                                                    <p className='logged-dev-name'>{dev.firstname} {dev.lastname}</p>
+                                                    <div>
+                                                        <h4>Short Bio:</h4>
+                                                        <p>{
+                                                            dev.shortBio?
+                                                                dev.shortBio
+                                                                :
+                                                                "You can add a Short Bio by hitting the 'Edit Skills' button"        
+                                                        }</p>
+                                                        <h4>Your Languages:</h4>
+                                                        {
+                                                            dev.languages?
+                                                                dev.languages.filter( val => skills[val]).map((val,ind)=>{
+                                                                    return <img key={skills[val].name+ind} src={skills[val].icon} alt={skills[val].alt} className='mini-skill-icon black-colored'/>
+                                                                })
+                                                                :
+                                                                <p>You can add your Languages of preference by hitting the 'Edit Skills' button</p>
+                                                        }
+                                                        <h4>Your Frameworks and Libraries:</h4>
+                                                        {
+                                                            dev.frameworks ?
+                                                                dev.frameworks.filter( val => skills[val]).map((val,ind)=>{
+                                                                    return <img key={skills[val].name+ind} src={skills[val].icon} alt={skills[val].alt} className='mini-skill-icon black-colored'/>
+                                                                })
+                                                                :
+                                                                <p>You can add your Frameworks of preference by hitting the 'Edit Skills' button</p>
+                                                        }
+                                                    </div>
+                                                </>
                                                 :
-                                                <p>Something is Loading...</p>
+                                                <p className='warning'>Something is Loading...</p>
                                         }
                                     </div>
                                 </div>
@@ -72,28 +101,29 @@ const DevDashBoard = () => {
                                         {
                                             !isLoadingPositions ?
                                             positions.map((value,i)=>
-                                                <div key={i}>
+                                                <div className='available-dev-div' key={i}>
                                                     <h3>{value.name}</h3>
                                                     <p>{value.description}</p>
+                                                    <h4>Required skills:</h4>
                                                     {
                                                         value.skills.filter( val => skills[val]).map((val,ind)=>{
-                                                            return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='skill-icon black-colored'/>
+                                                            return <img key={skills[val].name+i+ind} src={skills[val].icon} alt={skills[val].alt} className='mini-skill-icon black-colored'/>
                                                         })
                                                     }
                                                 </div>
                                             )
                                             :
-                                            <p>Something is Loading...</p>
+                                            <p className='warning'>Loading your Data...</p>
                                         }
                                     </div>
                                 </div>
                             </div>
                             :
-                            "You must be a Developer to be here"
+                            <p className='warning'>You must be a Developer to be here</p>
                         :
-                        "Session expired, try logging in again..."
+                        <p className='warning'>Session expired, try logging in again...</p>
                     :
-                    "Loading your Data..."
+                    <p className='warning'>Loading your Data...</p>
             }
         </>
     )

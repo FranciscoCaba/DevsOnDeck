@@ -7,6 +7,8 @@ import axios from 'axios'
 const DevLogin = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate()
 
     const handleSubmit = e => {
@@ -15,7 +17,11 @@ const DevLogin = () => {
             email, password, accountType: "DEV"
         }, { withCredentials: true})
             .then( (res) => {
-                navigate('/devs/skills/languages')
+                navigate('/devs/dashboard')
+            })
+            .catch( err => {
+                setError(true)
+                setErrorMessage(err.response.data.error)
             })
     }
 
@@ -33,7 +39,13 @@ const DevLogin = () => {
                     <label className='login-label flex-1'>Password</label>
                     <input className='input flex-2' type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </div>
-                <button className='login-button' /*onClick={()=>navigate('/devs/skills/languages')}*/>Log In</button>
+                {
+                    error ?
+                        <p className='error'>{errorMessage}</p>
+                        :
+                        ""
+                }
+                <button className='login-button'>Log In</button>
             </form>
         </>
     )

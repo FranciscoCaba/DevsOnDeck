@@ -11,6 +11,7 @@ const AddPosition = () => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [selectedSkills, setSelectedSkills] = useState([])
+    const [errorMessage, setErrorMessage] = useState("")
 
     useEffect(() => {
         isSignedIn()
@@ -40,7 +41,7 @@ const AddPosition = () => {
                     navigate('/orgs/dashboard')
                 })
                 .catch(error => {
-                    console.log(error);
+                    setErrorMessage(error.response.data.errors)
                 })
         }
     }
@@ -69,16 +70,28 @@ const AddPosition = () => {
                         </div>
                         <form className='position-body' onSubmit={handleOnSubmit}>
                             <div className='flex-container'>
-                                <label>Name:</label>
-                                <input type="text" value={name} onChange={ e => setName(e.target.value)}/>
+                                <label className='flex-1 add-position-label'>Name:</label>
+                                <input className='flex-3 input' type="text" value={name} onChange={ e => setName(e.target.value)}/>
                             </div>
+                            {
+                                errorMessage.name?
+                                    <p className='error'>{errorMessage.name.message}</p>
+                                    :
+                                    ""
+                            }
                             <div className='flex-container'>
-                                <label>Description:</label>
-                                <textarea cols="30" rows="10" placeholder='Add more about the position here...' value={description} onChange={ e => setDescription(e.target.value)}/>
+                                <label className='flex-1 add-position-label'>Description:</label>
+                                <textarea className='flex-3' cols="30" rows="10" placeholder='Add more about the position here...' value={description} onChange={ e => setDescription(e.target.value)}/>
                             </div>
+                            {
+                                errorMessage.description?
+                                    <p className='error'>{errorMessage.description.message}</p>
+                                    :
+                                    ""
+                            }
                             <div className='flex-container'>
-                                <label>Skills:</label>
-                                <div>
+                                <label className='flex-1 add-position-label'>Skills:</label>
+                                <div className='flex-3 languages-options'>
                                     {
                                         Object.keys(skills).map( (value,i)=>{
                                             const val = skills[value]
@@ -90,12 +103,19 @@ const AddPosition = () => {
                                     }
                                 </div>
                             </div>
-                            <button className='position-button'>Add Position</button>
+                            {
+                                errorMessage.skills?
+                                    <p className='error'>{errorMessage.skills.message}</p>
+                                    :
+                                    ""
+                            }
+                            <div className='add-button-div'>
+                                <button className='add-button'>Add Position</button>
+                            </div>
                         </form>
                     </div>
                     :
-                    "Session expired, please login again"
-
+                    <p className='warning'>Session expired, please login again</p>
             }
         </>
     )

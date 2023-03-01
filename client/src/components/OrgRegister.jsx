@@ -14,6 +14,7 @@ const OrgRegister = () => {
     const [state, setState] = useState("AL")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const navigate = useNavigate()
 
@@ -27,7 +28,7 @@ const OrgRegister = () => {
                 navigate('/orgs/dashboard')
             })
             .catch( (err) => {
-                console.log(err);
+                setErrorMessage(err.response.data.errors)
             })
     }
 
@@ -40,20 +41,50 @@ const OrgRegister = () => {
                     <label className='register-label flex-1'>Org Name</label>
                     <input className='input flex-3' type="text" value={orgName} onChange={ e => setOrgName(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.orgName?
+                        <p className='error'>{errorMessage.orgName.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <label className='register-label flex-1'>First Name</label>
                     <input className='input flex-1' type='text' value={firstname} onChange={ e => setFirstname(e.target.value)}/>
                     <label className='register-label flex-1'>Last Name</label>
                     <input className='input flex-1' type='text' value={lastname} onChange={ e => setLastname(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.firstname?
+                        <p className='error'>{errorMessage.firstname.message}</p>
+                        :
+                        ""
+                }
+                {
+                    errorMessage.lastname?
+                        <p className='error'>{errorMessage.lastname.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <label className='register-label flex-1'>Contact Email</label>
                     <input className='input flex-3' type="text" value={email} onChange={ e => setEmail(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.email?
+                        <p className='error'>{errorMessage.email.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <label className='register-label flex-1'>Org Address</label>
                     <input className='input flex-3' type="text" value={address} onChange={ e => setAddress(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.address?
+                        <p className='error'>{errorMessage.address.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <div className='flex-3 flex-container align-center'>
                         <label className='register-label flex-1'>City</label>
@@ -70,14 +101,32 @@ const OrgRegister = () => {
                         </select>
                     </div>
                 </div>
+                {
+                    errorMessage.city?
+                        <p className='error'>{errorMessage.city.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <label className='register-label flex-1'>Password</label>
                     <input className='input flex-3' type="password" value={password} onChange={ e => setPassword(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.password?
+                        <p className='error'>{errorMessage.password.message}</p>
+                        :
+                        ""
+                }
                 <div className='flex-container align-center'>
                     <label className='register-label flex-1'>Confirm</label>
                     <input className='input flex-3' type="password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value)}/>
                 </div>
+                {
+                    errorMessage.confirmPassword?
+                        <p className='error'>{errorMessage.confirmPassword.message}</p>
+                        :
+                        ""
+                }
                 <button className='register-button'>Register</button>
                 <NavLink to='/devs/register'>Need to Sign an Developer?</NavLink>
             </form>
