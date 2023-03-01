@@ -19,7 +19,9 @@ app.use(cors({
 }))
 
 //RUTAS
-const Routes = require('./routes/User.routes')
-Routes(app)
+const UserRoutes = require('./routes/User.routes')
+UserRoutes(app)
+const PositionRoutes = require('./routes/Position.routes')
+PositionRoutes(app)
 
 app.listen(PORT, () => console.log("Servidor corriendo en el puerto", PORT))
