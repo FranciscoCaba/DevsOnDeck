@@ -79,5 +79,36 @@ module.exports = {
                 return res.status(500).send(error);
             }
         }
+    },
+    getUsers: async (req,res) => {
+        try{
+            const users = await User.find({ accountType: "DEV" })
+            res.status(201).json(users.map( (value) => {
+                const { accountType, orgName, firstname, lastname, email, languages, frameworks, shortBio, _id } = value
+                if(accountType == "DEV")
+                    return { accountType, firstname, lastname, email, languages, frameworks, shortBio, _id }
+                else
+                    return { accountType, orgName, firstname, lastname, email, _id }
+            }))
+        }catch(error){
+            res.status(400).json(error)
+        }
+    },
+    getOneUser: async (req,res) => {
+        try{
+            const user = await User.findOne({ _id: req.params.id })
+            const { accountType, orgName, firstname, lastname, email, languages, frameworks, shortBio, _id } = user
+            if(accountType == "DEV")
+                res.status(201).json({ accountType, firstname, lastname, email, languages, frameworks, shortBio, _id })
+            else
+                res.status(201).json({ accountType, orgName, firstname, lastname, email, _id })
+        }catch(error){
+            res.status(400).json(error)
+        }
+    },
+    updateSkills: (req,res) => {
+        User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+            .then( user => res.status(201).json(user) )
+            .catch( error => res.status(400).json(error) )
     }
 }
