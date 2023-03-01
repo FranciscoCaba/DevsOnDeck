@@ -180,31 +180,54 @@
     padding: 1vh 1vw;
 }
 
-.skills-container {
-    height: 85vh;
+.outer-progress-bar-div {
+    width: 40%;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.inner-progress-bar-div {
+    width: 33%;
+    height: 100%;
+    background-color: #ccc;
+}
+
+.inner-progress-bar-div-2 {
+    width: 66%;
+    height: 100%;
+    background-color: #ccc;
+}
+
+.skills-container, .position-container {
+    height: 65vh;
     margin: 3vh auto;
     width: 60vw;
     border: 2px solid black;
 }
 
-.skills-title {
+.skills-title, .position-title {
     padding: 1vh 1vw;
     background-color: #6fa8dc;
     border-bottom: 2px solid black;
     justify-content: space-between;
 }
 
-.skills-body {
+.skills-body, .position-body {
     padding: 2vh 1vw;
-    height: 75vh;
+    height: 50vh;
 }
 
 .languages-options, .selected-skills {
     border: 2px solid black;
 }
 
+.selected-skills {
+    height: 65px;
+    padding: 5px 0;
+}
+
 .languages-options {
-    height: 80%;
+    height: 90%;
     padding: 1vh 1vw;
 }
 
@@ -216,6 +239,50 @@
     margin-top: 2vh;
 }
 
+.language-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1.5vw 0 0;
+}
+
+.skip-button {
+    cursor: pointer;
+    width: 20%;
+    padding: 0.5vh 0;
+    margin: 0 1vw 2vh 0;
+    font-size: medium;
+    background-color: #999;
+    box-shadow: 3px 3px black;
+}
+
+.next-button {
+    cursor: pointer;
+    width: 40%;
+    padding: 0.5vh 0;
+    margin: 0 0 2vh 0;
+    font-size: medium;
+    background-color: #6fa8dc;
+    box-shadow: 3px 3px black;
+}
+
 .skill-icon {
-    width: 50px;
+    width: 40px;
+    height: 40px;
+    margin: 0.5vh 0.5vw;
+}
+
+.green-colored {
+    filter: invert(64%) sepia(97%) saturate(4334%) hue-rotate(85deg) brightness(133%) contrast(123%);
+}
+
+.black-colored {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(81deg) brightness(89%) contrast(104%);
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    border: 2px solid black;
+    padding: 0.5vh 0.5vw;
+    font-size: large;
 }

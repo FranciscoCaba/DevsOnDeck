@@ -55,7 +55,7 @@ const DevRegister = () => {
                     </div>
                     <div className='flex-1 flex-container'>
                         <label className='register-label flex-1'>State</label>
-                        <select className='flex-1' value={state} onChange={setState}>
+                        <select className='flex-1' value={state} onChange={(e)=>setState(e.target.value)}>
                             <option value="AL">AL</option>
                             <option value="OH">OH</option>
                             <option value="NY">NY</option>
