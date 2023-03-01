@@ -2,7 +2,7 @@ import { skills } from '../images'
 import NavBar from './NavBar'
 import React from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 const DevsMatchingPosition = () => {
@@ -14,19 +14,10 @@ const DevsMatchingPosition = () => {
     const [isLoadingPositions, setIsLoadingPositions] = useState(true)
 
     const { num } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/issignedin', { withCredentials: true })
-            .then( res => {
-                setUserData(res.data)
-                setIsLoadingUserData(false)
-            })
-            .catch(error => {
-                if (error.response.status === 403){
-                    setUserData(null)
-                    setIsLoadingUserData(false)
-                }
-            })
+        isSignedIn()
         axios.get('http://localhost:8000/api/user', { withCredentials: true })
             .then( res => {
                 setDevs(res.data)
@@ -44,6 +35,20 @@ const DevsMatchingPosition = () => {
         }
     }, [userData])
 
+    const isSignedIn = () => {
+        axios.get('http://localhost:8000/api/issignedin', { withCredentials: true })
+            .then( res => {
+                setUserData(res.data)
+                setIsLoadingUserData(false)
+            })
+            .catch(error => {
+                if (error.response.status === 403){
+                    setUserData(null)
+                    setIsLoadingUserData(false)
+                }
+            })
+    }
+
     const getMatchingDevs = () => {
         const res = []
         const total = positions[num-1].skills.length
@@ -56,6 +61,14 @@ const DevsMatchingPosition = () => {
             res.push({ dev, percent: count/total })
         }
         return res
+    }
+
+    const handleDeletion = () => {
+        if(userData !== null){
+            axios.delete( 'http://localhost:8000/api/position/'+positions[num-1]._id )
+                .then( res => navigate('/orgs/dashboard') )
+                .catch( err => console.log(err) )
+        }
     }
 
     return (
@@ -74,6 +87,9 @@ const DevsMatchingPosition = () => {
                                                 :
                                                 <p className='warning'>Loading position...</p>
                                         }
+                                        <div className='delete-button-div'>
+                                            <button className='delete-button' onClick={ handleDeletion }>Delete Position</button>
+                                        </div>
                                     </div>
                                     <div className='border-black'>
                                         <div>

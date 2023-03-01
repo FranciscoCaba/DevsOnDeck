@@ -9,8 +9,8 @@ module.exports = {
         try{
             if( password === confirmPassword ){
                 const newUser = await User.create({ accountType, orgName, firstname, lastname, email, address, city, state, password })
-                const userToken = jwt.sign({_id: newUser._id, accountType: newUser.accountType}, SECRET, { expiresIn: '2m' })
-                res.status(201).cookie('userToken', userToken, {httpOnly: true, expires: new Date(Date.now() + 120000)})
+                const userToken = jwt.sign({_id: newUser._id, accountType: newUser.accountType}, SECRET, { expiresIn: '4m' })
+                res.status(201).cookie('userToken', userToken, {httpOnly: true, expires: new Date(Date.now() + 240000)})
                     .json({successMessage: "User created correctly", user: newUser})
             }else{
                 res.status(400).json({ errors: { confirmPassword: {message: "Passwords dont match"}}})
@@ -33,8 +33,8 @@ module.exports = {
             if(!passwordValidation){
                 res.status(400).json({error: "Incorrect email or password"})
             }else{
-                const userToken = jwt.sign({ _id: user._id, accountType: user.accountType}, SECRET, { expiresIn: '2m' })
-                res.status(201).cookie('userToken', userToken, {httpOnly: true, expires: new Date(Date.now()+120000)})
+                const userToken = jwt.sign({ _id: user._id, accountType: user.accountType}, SECRET, { expiresIn: '4m' })
+                res.status(201).cookie('userToken', userToken, {httpOnly: true, expires: new Date(Date.now()+240000)})
                     .json({ successMessage: "Loged in successfully"})
             }
         }catch(error){

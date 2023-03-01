@@ -24,5 +24,10 @@ module.exports = {
         }catch(error){
             res.status(400).json(error)
         }
+    },
+    deletePosition: (req,res) => {
+        Position.findOneAndRemove({ _id: req.params.id })
+            .then( position => res.json(position) )
+            .catch( err => res.status(400).json(err) )
     }
 }
